@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block page_title %}Login{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-7"><img class="bg-img-cover bg-center" src="{% static 'images/login/7.jpg' %}" alt="looginpage"></div>
+    <div class="col-xl-5 p-0">
+      <div class="login-card login-dark">
+        <div>
+          <div class="login-main"> 
+            <form class="theme-form" method="post"> 
+                {% csrf_token %}
+              <h4>Sign in to account</h4>
+              <p>Enter your username & password to login</p>
+              <div class="form-group">
+                <label class="col-form-label">Username</label>
+                <input class="form-control" type="text" name="username" required="" placeholder="username">
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Password</label>
+                <div class="form-input position-relative">
+                  <input class="form-control" type="password" name="password" required="" placeholder="*********">
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <button class="btn btn-primary btn-block w-100" type="submit">Sign in</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

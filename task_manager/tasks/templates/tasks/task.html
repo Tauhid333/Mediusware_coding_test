@@ -1,0 +1,177 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block page_title %}Task{% endblock %}
+{% block page_header %}Task{% endblock %}
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="index.html">                                       
+      <svg class="stroke-icon">
+        <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+      </svg></a></li>
+  <li class="breadcrumb-item">Task</li>
+  <li class="breadcrumb-item active">POS</li>
+</ol>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card ">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 align-self-center">
+                            <h4 class="mb-1">Task List</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body custom-color rounded-lg p-3 custom-rl mr-0 custom-height">
+                    <div class="table-responsive">
+                        <table class="table table-border table-striped card-table table-vcenter display" id="basic-1">
+                            <thead>
+                                <tr>
+                                    <th class="d-sm-table-cell">SL.</th>
+                                    <th>Task</th>
+                                    <th>Location</th>
+                                    <th class="d-sm-table-cell"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for Task in object_list %}
+                                <tr>
+                                    <td class="">{{ forloop.counter }}</td>
+                                    <td>{{ Task.title }}</td>
+                                    <td>{{ Task.description }}</td>
+                                    <td class="text-left">
+                                        <a class="h4 m-r-10 text-success" href="{% url 'task_update' Task.id %}">
+                                            <span class="icon"><i class="fa fa-edit"></i></span>
+                                        </a>
+                                        <a class="h4 text-danger delete_btn" href="{% url 'task_delete' Task.id %}">
+                                            <span class="icon"><i class="fa fa-trash"></i></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-9 align-self-center">
+                            <h4 class="mb-1" id="form_header">{{ action_name }}</h4>
+                        </div>
+
+                        {% if instance %}
+                        <div class="col-3 align-self-center text-right">
+
+                            <div class="d-flex justify-content-end align-items-center">
+
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
+                                    <div class="btn-group" role="group" aria-label="First group">
+
+                                        <a href="{% url 'task_list' %}" class="btn btn-xs btn-success" title="Add New">
+                                            <i class="ti-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body custom-color rounded-lg p-3 custom-rl ml-0">
+                    <form class="floating-labels mt-3" method="post" id="form" action="{{ action_url }}">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="title">Task</label>
+                            <input type="text" class="form-control" data-title="Task" id="title" name="title" value="{{ instance.title }}" required pattern="^(?!\s).*">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" data-title="Task" id="description" name="description" value="{{ instance.description }}" pattern="^(?!\s).*" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="due_date">Due Date</label>
+                            <input type="date" class="form-control" id="due_date" name="due_date" value="{{ instance.due_date }}" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="priority">Priority</label>
+                            <select class="form-control" id="priority" name="priority">
+                                <option value="Low" {% if instance.priority == 'Low' %} selected {% endif %}>Low</option>
+                                <option value="Medium" {% if instance.priority == 'Medium' %} selected {% endif %}>Medium</option>
+                                <option value="High" {% if instance.priority == 'High' %} selected {% endif %}>High</option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input type="checkbox" class="form-check-input" id="is_complete" name="is_complete" {% if instance.is_complete %} checked {% endif %}>
+                            <label class="form-check-label" for="is_complete">Mark as Complete</label>
+                        </div>
+                        <button type="submit" id="submit_btn" class="btn btn-sm btn-block waves-effect waves-light btn-rounded btn-success">
+                            <span class="btn-label"><i class="fa fa-check"></i></span> Submit
+                        </button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block page_js %}
+<script>
+
+    $(".card-table").DataTable({});
+
+    
+
+    $('body').on('click','.delete_btn', function(e){
+        
+        e.preventDefault();
+
+        Swal.fire({
+
+            text                : 'Do you want to delete this Task from list?',
+
+            type                : 'question',
+
+            confirmButtonText   : 'Yes',
+
+            confirmButtonColor  : "#00c292",
+
+            showCancelButton    : true,
+
+            cancelButtonText    : 'No',
+
+            cancelButtonColor   : "#e46a76",
+
+            reverseButtons      : false
+
+        }).then((result) => {
+
+            if(result.value){
+
+                window.location.href = $(this).attr('href')
+
+            }
+
+        });
+
+    });
+
+    
+
+</script>
+{% endblock %}
+
+
+

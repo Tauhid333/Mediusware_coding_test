@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_links %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/swiper/swiper-bundle.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/swiper/swiper.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/scrollbar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/datatables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/date-picker.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/vendors/sweetalert2.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+{% autoescape off %}
+{% block page_css %}{% endblock %}
+{% endautoescape %}
+
+{% endblock %}
+
+
+{% block body %}
+<div class="page-wrapper horizontal-wrapper enterprice-type" id="pageWrapper">
+  <!-- Page Header Start-->
+  {% include 'partials/header.html' %}
+  <!-- Page Header Ends-->
+  <!-- Page Body Start-->
+  <div class="page-body-wrapper">
+      {% include 'partials/sidebar.html' %}
+      <div class="page-body">
+        <div class="container-fluid">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+      {% include 'partials/footer.html' %}
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js_scripts %}
+<!-- latest jquery-->
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<!-- Bootstrap js-->
+<script src="{% static '/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+<!-- Sweet alert-->
+<script src="{% static '/js/sweet-alert/sweetalert.min.js' %}"></script>
+<script src="{% static '/js/sweet-alert/app.js' %}"></script>
+<!-- scrollbar js-->
+<script src="{% static '/js/scrollbar/simplebar.js' %}"></script>
+<script src="{% static '/js/scrollbar/custom.js' %}"></script>
+<script src="{% static '/js/config.js' %}"></script>
+<!-- Plugins JS start-->
+<script src="{% static '/js/sidebar-menu.js' %}?v=0.1"></script>
+<script src="{% static '/js/sidebar-pin.js' %}"></script>
+<script src="{% static '/js/slick/slick.min.js' %}"></script>
+<script src="{% static '/js/slick/slick.js' %}"></script>
+<script src="{% static '/js/header-slick.js' %}"></script>
+<script src="{% static '/js/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static '/js/dashboard/dashboard_8.js' %}"></script>
+<script src="{% static '/js/height-equal.js' %}"></script>
+<script src="{% static '/js/datatable/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatable/datatables/datatable.custom.js' %}"></script>
+<script src="{% static '/js/datepicker/date-picker/datepicker.js' %}"></script>
+<script src="{% static '/js/datepicker/date-picker/datepicker.en.js' %}"></script>
+<script src="{% static '/js/datepicker/date-picker/datepicker.custom.js' %}"></script>
+
+<script src="{% static '/js/datepicker/date-time-picker/moment.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<!-- Plugins JS Ends-->
+<!-- Theme js-->
+<script src="{% static '/js/script.js' %}"></script>
+{% block page_js %}{% endblock %}
+{% endblock %}

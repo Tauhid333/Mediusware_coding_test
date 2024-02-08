@@ -1,0 +1,46 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+    
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block page_title %}{% endblock %} || Task Manager</title>
+    {% comment %} <link rel="icon" type="image/png" sizes="16x16" href="{% static '/images/favicon.png' %}"> {% endcomment %}
+    {% block page_meta %}{% endblock %}
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/vendors/icofont.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/vendors/themify.css' %}">
+    
+    {# Page-specific styles #}
+    {% autoescape off %}
+    {% block css_links %}{% endblock %}
+    {% endautoescape %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/vendors/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}?v=0.3">
+    <link id="color" rel="stylesheet" href="{% static '/css/color-1.css' %}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/responsive.css' %}">
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    
+
+</head>
+
+<body>
+    {% block body %}{% endblock %}
+    
+    <script src="{% static '/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    {% autoescape off %}
+    {% block js_scripts %}
+    {% endblock %}
+    {% endautoescape %}
+    <script src="{% static '/js/script.js' %}"></script>
+</body>
+
+</html>
