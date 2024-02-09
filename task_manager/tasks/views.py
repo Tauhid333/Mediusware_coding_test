@@ -13,7 +13,7 @@ def sys_login(request):
         if user is not None:
             login(request, user)
             next_url = request.GET.get("next")
-            return redirect("home") if not next_url else redirect(next_url)
+            return redirect("task_list") if not next_url else redirect(next_url)
         else: pass
     return render(request, "login.html")
 
@@ -30,3 +30,4 @@ def home(request):
 
 try : from tasks.view.task import *
 except ImportError : pass
+

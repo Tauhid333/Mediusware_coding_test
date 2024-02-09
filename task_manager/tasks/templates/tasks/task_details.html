@@ -1,0 +1,79 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block page_title %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6 align-self-center">
+                        <h4 class="mb-1">Task Details</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body custom-color rounded-lg p-3 custom-rl mr-0 ml-3 custom-height">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                          <h3>Task Summary<hr style="width: 50%;"></h3>
+                          
+                            <table class="product-page-width mr-0">
+                                <tbody>
+                                  <tr>
+                                    <td> <b>Task  &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ task.title }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Description  &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ task.description }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Task Date &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ task.created_at }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Task Created By &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{task.created_by}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Due Date &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ task.due_date }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Status &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td class="{% if task.is_complete == 'True' %}txt-success{% elif task.is_complete == 'False' %}txt-warning{% else %}txt-danger{% endif %}">:{{ task.is_complete }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Task Priority &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ task.priority }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Photos</b> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</td>
+                                    <td>
+                                        {% for photo in photos %}
+                                        <img src="{{ photo.image.url }}" alt="N/A" width="50"height="40">
+                                        {% endfor %}
+                                    </td>
+                                  </tr>
+                                  {% comment %} <tr>
+                                    <td> <b>Paid Amount &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ order.paid_amount|floatformat:2 }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td> <b>Returned Amount &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</b></td>
+                                    <td>:{{ order.returned_amount|floatformat:2 }}</td>
+                                  </tr> {% endcomment %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

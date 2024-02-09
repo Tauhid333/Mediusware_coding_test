@@ -12,6 +12,7 @@ urlpatterns = [
 	path('task/', views.task_list, name='task_list'),
 	path('task/edit/<int:id>/', views.task_update, name='task_update'),
 	path('task/delete/<int:id>/', views.task_delete, name='task_delete'),
+    path('task_details/<int:id>/', views.task_details, name = 'task_details')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
