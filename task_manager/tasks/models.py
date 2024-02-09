@@ -13,6 +13,9 @@ class CoreAction(models.Model):
 
     class Meta: abstract = True
 
+
+
+
 class TaskDetails(CoreAction):
     LOW = 'Low'
     MEDIUM = 'Medium'
@@ -27,9 +30,13 @@ class TaskDetails(CoreAction):
     due_date       = models.DateField()
     priority       = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default=LOW)
     is_complete    = models.BooleanField(default=False)
-
+    
     class Meta:
         db_table            = "task_details"
 
     def __str__(self):
         return self.title
+    
+class Photo(CoreAction):
+    task           = models.ForeignKey(TaskDetails, on_delete = models.CASCADE, null = True, blank = True)
+    image          = models.ImageField(null=True, blank=True)

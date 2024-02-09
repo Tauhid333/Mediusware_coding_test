@@ -32,8 +32,10 @@
                                 <tr>
                                     <th class="d-sm-table-cell">SL.</th>
                                     <th>Task</th>
-                                    <th>Location</th>
-                                    <th class="d-sm-table-cell"></th>
+                                    <th>Due Date</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th class="d-sm-table-cell">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,13 +43,16 @@
                                 <tr>
                                     <td class="">{{ forloop.counter }}</td>
                                     <td>{{ Task.title }}</td>
-                                    <td>{{ Task.description }}</td>
+                                    {% comment %} <td>{{ Task.description }}</td> {% endcomment %}
+                                    <td>{{ Task.due_date }}</td>
+                                    <td>{{ Task.priority }}</td>
+                                    <td>{{ Task.is_complete }}</td>
                                     <td class="text-left">
                                         <a class="h4 m-r-10 text-success" href="{% url 'task_update' Task.id %}">
-                                            <span class="icon"><i class="fa fa-edit"></i></span>
+                                            <span class="icon"><i class="icofont icofont-edit"></i></span>
                                         </a>
                                         <a class="h4 text-danger delete_btn" href="{% url 'task_delete' Task.id %}">
-                                            <span class="icon"><i class="fa fa-trash"></i></span>
+                                            <span class="icon"><i class="icofont icofont-trash"></i></span>
                                         </a>
                                     </td>
                                 </tr>
@@ -89,7 +94,7 @@
                 </div>
 
                 <div class="card-body custom-color rounded-lg p-3 custom-rl ml-0">
-                    <form class="floating-labels mt-3" method="post" id="form" action="{{ action_url }}">
+                    <form class="floating-labels mt-3" method="post" id="form" action="{{ action_url }}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group mb-4">
                             <label for="title">Task</label>
@@ -101,7 +106,7 @@
                         </div>
                         <div class="form-group mb-4">
                             <label for="due_date">Due Date</label>
-                            <input type="date" class="form-control" id="due_date" name="due_date" value="{{ instance.due_date }}" required>
+                            <input type="date" class="form-control" data-title="Task" id="due_date" name="due_date" value="{{ instance.due_date }}" required>
                         </div>
                         <div class="form-group mb-4">
                             <label for="priority">Priority</label>
@@ -110,6 +115,10 @@
                                 <option value="Medium" {% if instance.priority == 'Medium' %} selected {% endif %}>Medium</option>
                                 <option value="High" {% if instance.priority == 'High' %} selected {% endif %}>High</option>
                             </select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="image">Photos</label>
+                            <input type="file" class="form-control" id="image" name="image"  multiple>
                         </div>
                         <div class="form-check mb-4">
                             <input type="checkbox" class="form-check-input" id="is_complete" name="is_complete" {% if instance.is_complete %} checked {% endif %}>

@@ -12,13 +12,17 @@ def task_list(request):
         request.POST = request.POST.copy()
         request.POST['created_by_id'] = request.user.id
         created_by = request.user
+        images = request.FILES.getlist('image')
         print('a',created_by)
-        form = TaskForm(request.POST)
+        form = TaskForm(request.POST,request.FILES)
         if form.is_valid():
+            print(form)
             task = form.save()
             task.created_by = request.user
             task.save()
-            form.save()
+            for image in images:
+                Photo(image = image , task = task).save()
+                print(Photo(image = image , task = task))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else :
             for field in form:
@@ -37,10 +41,19 @@ def task_list(request):
 def task_update(request, id):
     try:
         instance = get_object_or_404(TaskDetails, id=id)
+        photo = Photo.objects.filter(task = instance)
+        print(photo)
+        for i in photo:
+            print('image',i)
         if request.method == "POST":
             form = TaskForm(request.POST, instance=instance)
             if form.is_valid():
-                form.save()
+                task= form.save()
+                task.updated_by = request.user
+                task.save()
+                images = request.FILES.getlist('image')
+                for image in images:
+                    Photo(image = image , task = task).save()
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         template_name   = "tasks/task.html"
         action_name     = "Update TaskDetails"
